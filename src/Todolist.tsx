@@ -21,11 +21,12 @@ export const Todolist = (props: PropsType) => {
         <div>
             <Header title={'What to learn'}/>
             <div>
-                <input onChange={(e) => {
+                <input value={title} onChange={(e) => {
                     setTitle(e.currentTarget.value)
                 }}/>
                 <button onClick={() => {
                     props.addTask(title)
+                    setTitle('')
                 }}>+
                 </button>
             </div>
