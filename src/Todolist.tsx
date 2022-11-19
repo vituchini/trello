@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Header} from './components/Header';
-import {v1} from 'uuid';
 import {FilterValuesType} from './App';
 
 type TasksType = {
@@ -13,15 +12,22 @@ type PropsType = {
     tasks: Array<TasksType>
     removeTask: (id: string) => void
     changeFilter: (value: FilterValuesType) => void
+    addTask: (title: string) => void
 }
 export const Todolist = (props: PropsType) => {
+    const [title, setTitle] = useState('')
 
     return (
         <div>
             <Header title={'What to learn'}/>
             <div>
-                <input/>
-                <button>+</button>
+                <input onChange={(e) => {
+                    setTitle(e.currentTarget.value)
+                }}/>
+                <button onClick={() => {
+                    props.addTask(title)
+                }}>+
+                </button>
             </div>
             <ul>
                 {props.tasks.map(t => <li><input type="checkbox" checked={t.isDone}/>
@@ -30,9 +36,18 @@ export const Todolist = (props: PropsType) => {
                 </li>)}
             </ul>
             <div>
-                <button onClick={()=>{props.changeFilter('all')} }>All</button>
-                <button onClick={()=>{props.changeFilter('active')}}>Active</button>
-                <button onClick={()=>{props.changeFilter('completed')}}>Completed</button>
+                <button onClick={() => {
+                    props.changeFilter('all')
+                }}>All
+                </button>
+                <button onClick={() => {
+                    props.changeFilter('active')
+                }}>Active
+                </button>
+                <button onClick={() => {
+                    props.changeFilter('completed')
+                }}>Completed
+                </button>
             </div>
         </div>
     );

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Header} from './components/Header';
 import {v1} from 'uuid';
 import {Todolist} from './Todolist';
 
@@ -35,11 +34,18 @@ function App() {
         setFilter(value)
     }
 
+    function addTask(title: string) {
+        let task = {id: v1(), name: title, isDone: true};
+        let newTasks = [task, ...tasks];
+        setTasks(newTasks);
+    }
+
     return (
         <div className="App">
             <Todolist tasks={tasksForTodolist}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
+                      addTask={addTask}
             />
 
         </div>
