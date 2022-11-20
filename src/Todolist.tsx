@@ -17,13 +17,19 @@ type PropsType = {
 }
 export const Todolist = (props: PropsType) => {
     const [title, setTitle] = useState('')
+    const [error, setError] = useState('')
 
     const changeFilterHandler = (value: FilterValuesType) => {
         props.changeFilter(value)
     }
 
     const addTaskHandler = () => {
-        props.addTask(title)
+        let trimmedTask = title.trim()
+        if (trimmedTask) {
+            props.addTask(trimmedTask)
+        } else {
+            setError('Title is required')
+        }
         setTitle('')
     }
 
@@ -31,10 +37,12 @@ export const Todolist = (props: PropsType) => {
         <div>
             <Header title={'What to learn'}/>
             <div>
-                <input value={title} onChange={(e) => {
+                <input className={error ? 'error' : ''} value={title} onChange={(e) => {
                     setTitle(e.currentTarget.value)
+                    setError('')
                 }}/>
                 <Button name={'+'} callback={addTaskHandler}/>
+                {error && <div className={'error-message'}>{error}</div>}
             </div>
             <ul>
                 {props.tasks.map(t => {
