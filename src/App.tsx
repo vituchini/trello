@@ -35,12 +35,18 @@ function App() {
     }
 
     function addTask(title: string) {
-        let task = {id: v1(), name: title, isDone: true};
+        let task = {id: v1(), name: title, isDone: false};
         let newTasks = [task, ...tasks];
         setTasks(newTasks);
     }
 
-
+    function changeStatus (tId: string, taskIsDone: boolean) {
+        let task = tasks.find(t=> t.id === tId)
+        if (task) {
+            task.isDone = taskIsDone
+            setTasks([...tasks])
+        }
+    }
 
     return (
         <div className="App">
@@ -48,6 +54,7 @@ function App() {
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask={addTask}
+                      changeStatus={changeStatus}
             />
 
         </div>
