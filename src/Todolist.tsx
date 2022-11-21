@@ -37,10 +37,17 @@ export const Todolist = (props: PropsType) => {
         <div>
             <Header title={'What to learn'}/>
             <div>
-                <input className={error ? 'error' : ''} value={title} onChange={(e) => {
-                    setTitle(e.currentTarget.value)
-                    setError('')
-                }}/>
+                <input className={error ? 'error' : ''} value={title}
+                       onChange={(e) => {
+                           setTitle(e.currentTarget.value)
+                           setError('')
+                       }}
+                       onKeyPress={(e)=> {
+                           if (e.key === 'Enter') {
+                               addTaskHandler()
+                           }
+                       }}
+                />
                 <Button name={'+'} callback={addTaskHandler}/>
                 {error && <div className={'error-message'}>{error}</div>}
             </div>
