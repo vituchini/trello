@@ -5,11 +5,13 @@ import {Button} from './components/Button';
 
 type TasksType = {
     id: string
-    name: string
+    title: string
     isDone: boolean
 }
 
 type PropsType = {
+    todolistID: string
+    title: string
     tasks: Array<TasksType>
     removeTask: (id: string) => void
     changeFilter: (value: FilterValuesType) => void
@@ -66,7 +68,7 @@ export const Todolist = (props: PropsType) => {
                                            props.changeStatus(t.id, e.currentTarget.checked)
                                        }}
                                 />
-                                <span>{t.name}</span>
+                                <span>{t.title}</span>
                                 <Button name={'x'} callback={() => removeTaskHandler(t.id)}/>
                             </li>
                         )
