@@ -16,7 +16,8 @@ type PropsType = {
     removeTask: (todolistID: string, taskID: string) => void
     changeFilter: (todolistID: string, value: FilterValuesType) => void
     addTask: (todolistID: string, title: string) => void
-    changeStatus: (tId: string, taskIsDone: boolean) => void
+    changeStatus: (todolistID: string, taskID: string, taskIsDone: boolean) => void
+    filter: FilterValuesType
 }
 export const Todolist = (props: PropsType) => {
     const [title, setTitle] = useState('')
@@ -65,7 +66,7 @@ export const Todolist = (props: PropsType) => {
                                 <input type="checkbox"
                                        checked={t.isDone}
                                        onChange={(e) => {
-                                           props.changeStatus(t.id, e.currentTarget.checked)
+                                           props.changeStatus(props.todolistID, t.id, e.currentTarget.checked)
                                        }}
                                 />
                                 <span>{t.title}</span>
@@ -76,9 +77,12 @@ export const Todolist = (props: PropsType) => {
                 )}
             </ul>
             <div>
-                <Button name={'All'} callback={() => changeFilterHandler('all')}/>
-                <Button name={'Active'} callback={() => changeFilterHandler('active')}/>
-                <Button name={'Completed'} callback={() => changeFilterHandler('active')}/>
+                <Button className={props.filter === 'all' ? 'btn-active' : ''} name={'All'}
+                        callback={() => changeFilterHandler('all')}/>
+                <Button className={props.filter === 'active' ? 'btn-active' : ''} name={'Active'}
+                        callback={() => changeFilterHandler('active')}/>
+                <Button className={props.filter === 'completed' ? 'btn-active' : ''} name={'Completed'}
+                        callback={() => changeFilterHandler('completed')}/>
             </div>
         </div>
     )
