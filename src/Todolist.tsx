@@ -13,7 +13,7 @@ type PropsType = {
     todolistID: string
     title: string
     tasks: Array<TasksType>
-    removeTask: (id: string) => void
+    removeTask: (todolistID: string, taskID: string) => void
     changeFilter: (todolistID: string, value: FilterValuesType) => void
     addTask: (title: string) => void
     changeStatus: (tId: string, taskIsDone: boolean) => void
@@ -57,7 +57,7 @@ export const Todolist = (props: PropsType) => {
             <ul>
                 {props.tasks.map(t => {
                         const removeTaskHandler = (tId: string) => {
-                            props.removeTask(tId)
+                            props.removeTask(props.todolistID, tId)
                         }
                         return (
                             <li key={t.id}
