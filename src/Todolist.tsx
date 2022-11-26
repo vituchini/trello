@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Header} from './components/Header';
 import {FilterValuesType} from './App';
 import {Button} from './components/Button';
 import {AddItemForm} from './components/AddItemForm';
+import {EditableSpan} from './EditableSpan';
 
 type TasksType = {
     id: string
@@ -20,6 +21,7 @@ type PropsType = {
     changeStatus: (todolistID: string, taskID: string, taskIsDone: boolean) => void
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
+    updateTask: (todolistID: string, taskID: string, newTitle: string) => void
 }
 export const Todolist = (props: PropsType) => {
 
@@ -33,6 +35,10 @@ export const Todolist = (props: PropsType) => {
 
     const AddTaskHandler = (newTitle: string) => {
         return props.addTask(props.todolistID, newTitle)
+    }
+
+    const updateTaskHandler = (taskID: string, newTitle: string) => {
+        props.updateTask(props.todolistID, taskID, newTitle)
     }
 
     return (
@@ -57,7 +63,8 @@ export const Todolist = (props: PropsType) => {
                                            props.changeStatus(props.todolistID, t.id, e.currentTarget.checked)
                                        }}
                                 />
-                                <span>{t.title}</span>
+                                <EditableSpan title={t.title}
+                                              callback={(newTitle: string) => updateTaskHandler(t.id, newTitle)}/>
                                 <Button name={'x'} callback={() => removeTaskHandler(t.id)}/>
                             </li>
                         )
