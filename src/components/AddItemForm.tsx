@@ -2,18 +2,19 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Button} from './Button';
 
 type PropsType = {
-    todolistID: string
-    addTask: (todolistID: string, title: string) => void
+    // todolistID: string
+    // addTask: (todolistID: string, title: string) => void
+    callback: (newTitle: string) => void
 }
 
-export const AddItemForm: React.FC<PropsType> = (props) => {
+export const AddItemForm: React.FC<PropsType> = ({callback}) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState('')
 
     const addTaskHandler = () => {
         let trimmedTask = title.trim()
         if (trimmedTask) {
-            props.addTask(props.todolistID, trimmedTask)
+            callback(trimmedTask)
         } else {
             setError('Title is required')
         }

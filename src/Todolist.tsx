@@ -31,13 +31,17 @@ export const Todolist = (props: PropsType) => {
         props.removeTodolist(props.todolistID)
     }
 
+    const AddTaskHandler = (newTitle: string) => {
+        return props.addTask(props.todolistID, newTitle)
+    }
+
     return (
         <div>
             <Header name={'x'} callback={removeTodolistHandler}
                     title={props.title}
             />
 
-            <AddItemForm todolistID={props.todolistID} addTask={props.addTask} />
+            <AddItemForm callback={AddTaskHandler}/>
 
             <ul>
                 {props.tasks.map(t => {
