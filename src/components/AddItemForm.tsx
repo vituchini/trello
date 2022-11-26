@@ -2,8 +2,6 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Button} from './Button';
 
 type PropsType = {
-    // todolistID: string
-    // addTask: (todolistID: string, title: string) => void
     callback: (newTitle: string) => void
 }
 
