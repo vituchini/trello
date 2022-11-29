@@ -1,5 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button} from './Button';
+import {IconButton, TextField} from '@mui/material';
+import {AddBox} from '@mui/icons-material';
 
 type PropsType = {
     callback: (newTitle: string) => void
@@ -32,12 +33,18 @@ export const AddItemForm: React.FC<PropsType> = ({callback}) => {
 
     return (
         <div>
-            <input className={error ? 'error' : ''} value={title}
-                   onChange={onChangeHandler}
-                   onKeyPress={onKeyPressHandler}
+            <TextField id="outlined-basic"
+                       label={error ? 'Title is required' : 'Enter title'}
+                       variant="outlined"
+                       value={title}
+                       onChange={onChangeHandler}
+                       onKeyPress={onKeyPressHandler}
+                       error={!!error}
+                       helperText={error}
             />
-            <Button name={'+'} callback={addTaskHandler}/>
-            {error && <div className={'error-message'}>{error}</div>}
+            <IconButton color="primary" onClick={addTaskHandler}>
+                <AddBox/>
+            </IconButton>
         </div>
     );
 };
