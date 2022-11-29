@@ -22,6 +22,7 @@ type PropsType = {
     filter: FilterValuesType
     removeTodolist: (todolistID: string) => void
     updateTask: (todolistID: string, taskID: string, newTitle: string) => void
+    updateTodolist: (todolistID: string, newTitle: string)=>void
 }
 export const Todolist = (props: PropsType) => {
 
@@ -41,9 +42,13 @@ export const Todolist = (props: PropsType) => {
         props.updateTask(props.todolistID, taskID, newTitle)
     }
 
+    const updateTodolist = (newTitle: string) => {
+        props.updateTodolist(props.todolistID, newTitle)
+    }
+
     return (
         <div>
-            <Header name={'x'} callback={removeTodolistHandler}
+            <Header changeTitle={updateTodolist} name={'x'} callback={removeTodolistHandler}
                     title={props.title}
             />
 

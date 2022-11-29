@@ -64,6 +64,10 @@ function App() {
         setTasks({...tasks, [newTodolistID]: []})
     }
 
+    function updateTodolistTitle(todolistID: string, newTitle: string) {
+        setTodolists(todolists.map(tl=>tl.id===todolistID ? {...tl, title: newTitle} : tl))
+    }
+
     function changeStatus(todolistID: string, taskID: string, taskIsDone: boolean) {
         setTasks({
             ...tasks,
@@ -102,6 +106,7 @@ function App() {
                         filter={tl.filter}
                         removeTodolist={removeTodolist}
                         updateTask={updateTask}
+                        updateTodolist={updateTodolistTitle}
                     />
                 )
             })}
