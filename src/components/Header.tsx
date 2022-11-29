@@ -1,6 +1,7 @@
 import React from 'react';
-import {Button} from './Button';
 import {EditableSpan} from '../EditableSpan';
+import {IconButton} from '@mui/material';
+import {Delete} from '@mui/icons-material';
 
 type PropsType = {
     title: string
@@ -13,7 +14,9 @@ export const Header = (props: PropsType) => {
     return (
         <h3>
             <EditableSpan title={props.title} callback={props.changeTitle}/>
-            <Button name={props.name} callback={props.callback}/>
+            <IconButton onClick={props.callback} name={props.name}>
+                <Delete/>
+            </IconButton>
         </h3>
     );
 };
