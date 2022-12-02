@@ -1,29 +1,33 @@
 import React, {useState} from 'react';
 import './App.css';
 import {v1} from 'uuid';
-import {Todolist} from './Todolist';
+import {TasksType, Todolist} from './Todolist';
 import {AddItemForm} from './components/AddItemForm';
 import {Container, Grid, Paper} from '@mui/material';
 import ButtonAppBar from './components/AppBar';
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
-export type TodolistsType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
+}
+
+export type TasksStateType = {
+    [key: string]: Array<TasksType>
 }
 
 function App() {
     let todolistID1 = v1();
     let todolistID2 = v1();
 
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+    let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
-    let [tasks, setTasks] = useState({
+    let [tasks, setTasks] = useState<TasksStateType>({
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},

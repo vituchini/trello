@@ -7,7 +7,7 @@ import {Delete} from '@mui/icons-material';
 import {Button, Checkbox, IconButton} from '@mui/material';
 import {blue} from '@mui/material/colors';
 
-type TasksType = {
+export type TasksType = {
     id: string
     title: string
     isDone: boolean
