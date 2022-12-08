@@ -6,7 +6,8 @@ type PropsType = {
     callback: (newTitle: string) => void
 }
 
-export const AddItemForm: React.FC<PropsType> = ({callback}) => {
+export const AddItemForm: React.FC<PropsType> = React.memo(({callback}) => {
+
     const [title, setTitle] = useState('')
     const [error, setError] = useState('')
 
@@ -38,7 +39,7 @@ export const AddItemForm: React.FC<PropsType> = ({callback}) => {
                        variant="outlined"
                        value={title}
                        onChange={onChangeHandler}
-                       onKeyPress={onKeyPressHandler}
+                       onKeyDown={onKeyPressHandler}
                        error={!!error}
                        helperText={error}
             />
@@ -47,5 +48,5 @@ export const AddItemForm: React.FC<PropsType> = ({callback}) => {
             </IconButton>
         </div>
     );
-};
+});
 
