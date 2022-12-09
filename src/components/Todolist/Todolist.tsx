@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
-import {Header} from './Header';
-import {FilterValuesType} from '../App';
-import {AddItemForm} from './AddItemForm';
+import {Header} from '../Header/Header';
+import {FilterValuesType} from '../../App';
+import {AddItemForm} from '../AddItemForm/AddItemForm';
 import {Button} from '@mui/material';
-import {Task} from './Task';
+import {Task} from '../Task/Task';
 
 export type TasksType = {
     id: string
