@@ -11,7 +11,7 @@ export const AddItemForm: React.FC<PropsType> = React.memo(({callback}) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState('')
 
-    const addTaskHandler = () => {
+    const addItem = () => {
         let trimmedTask = title.trim()
         if (trimmedTask) {
             callback(trimmedTask)
@@ -28,7 +28,7 @@ export const AddItemForm: React.FC<PropsType> = React.memo(({callback}) => {
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            addTaskHandler()
+            addItem()
         }
     }
 
@@ -43,7 +43,7 @@ export const AddItemForm: React.FC<PropsType> = React.memo(({callback}) => {
                        error={!!error}
                        helperText={error}
             />
-            <IconButton color="primary" onClick={addTaskHandler}>
+            <IconButton color="primary" onClick={addItem}>
                 <AddBox/>
             </IconButton>
         </div>
