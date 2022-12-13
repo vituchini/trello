@@ -1,10 +1,10 @@
 import React, {useReducer} from 'react';
-import './App.css';
+import '../app/App.css';
 import {v1} from 'uuid';
-import {Todolist} from './components/Todolist/Todolist';
-import {AddItemForm} from './components/AddItemForm/AddItemForm';
+import {Todolist} from '../features/TodolistsList/Todolist/Todolist';
+import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 import {Container, Grid, Paper} from '@mui/material';
-import ButtonAppBar from './components/AppBar';
+import ButtonAppBar from '../components/AppBar';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
@@ -12,10 +12,11 @@ import {
     FilterValuesType,
     removeTodolistAC,
     todolistsReducer
-} from './state/todolists-reducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
-import {TaskPriorities, TaskStatuses, TaskType} from './api/todolist-api';
+} from '../features/TodolistsList/todolists-reducer';
+import {addTaskAC, removeTaskAC, tasksReducer} from '../features/TodolistsList/tasks-reducer';
+import {TaskPriorities, TaskStatuses, TaskType} from '../api/todolist-api';
 
+/*
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
@@ -255,3 +256,5 @@ function AppWithReducers() {
 }
 
 export default AppWithReducers;
+
+ */

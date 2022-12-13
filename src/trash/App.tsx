@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import './App.css';
+import '../app/App.css';
 import {v1} from 'uuid';
-import {Todolist} from './components/Todolist/Todolist';
-import {AddItemForm} from './components/AddItemForm/AddItemForm';
+import {Todolist} from '../features/TodolistsList/Todolist/Todolist';
+import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 import {Container, Grid, Paper} from '@mui/material';
-import ButtonAppBar from './components/AppBar';
-import {TaskPriorities, TaskStatuses, TaskType} from './api/todolist-api';
-import {FilterValuesType, TodolistDomainType} from './state/todolists-reducer';
+import ButtonAppBar from '../components/AppBar';
+import {TaskPriorities, TaskStatuses, TaskType} from '../api/todolist-api';
+import {FilterValuesType, TodolistDomainType} from '../features/TodolistsList/todolists-reducer';
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
