@@ -19,19 +19,19 @@ export const todolistAPI = {
         return instance.delete<BaseResponseType>(`/todo-lists/${todolistId}`)
     },
     updateTodolist: (todolistId: string, title: string) => {
-        return instance.put<BaseResponseType>(`/todo-lists/${todolistId}`, {title})
+        return instance.put<AxiosResponse<BaseResponseType>>(`/todo-lists/${todolistId}`, {title})
     },
     getTasks: (todolistId: string) => {
         return instance.get<ResponseTasksType>(`/todo-lists/${todolistId}/tasks`)
     },
     createTask: (todolistId: string, title: string) => {
-        return instance.post<ResponseTasksType>(`/todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<'', AxiosResponse<BaseResponseType<{ item: TaskType }>>>(`/todo-lists/${todolistId}/tasks`, {title})
     },
     deleteTask: (todolistId: string, taskId: string) => {
         return instance.delete<BaseResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    updateTask: (todolistId: string, taskId: string, model: UpdateModelType) => {
-        return instance.put<BaseResponseType<TaskType>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
+    updateTask: (todolistId: string, taskId: string, model: UpdateTaskModelType) => {
+        return instance.put<UpdateTaskModelType, AxiosResponse<BaseResponseType<{ item: TaskType }>>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
     }
 }
 
@@ -68,8 +68,8 @@ export enum TaskPriorities {
 export type TaskType = {
     description: string
     title: string
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
     id: string
@@ -80,15 +80,24 @@ export type TaskType = {
 
 type ResponseTasksType = {
     items: Array<TaskType>
-    error: string
+    error: string | null
     totalCount: number
 }
 
-type UpdateModelType = {
+export type UpdateTaskModelType = {
     title: string
     description: string
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
+}
+
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
 }
