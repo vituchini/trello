@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from 'react';
-import {Header} from '../Header/Header';
-import {FilterValuesType} from '../../state/todolists-reducer';
-import {AddItemForm} from '../AddItemForm/AddItemForm';
+import {Header} from '../../../components/Header/Header';
+import {FilterValuesType} from '../todolists-reducer';
+import {AddItemForm} from '../../../components/AddItemForm/AddItemForm';
 import {Button} from '@mui/material';
-import {Task} from '../Task/Task';
-import {TaskStatuses, TaskType} from '../../api/todolist-api';
+import {Task} from './Task/Task';
+import {TaskStatuses, TaskType} from '../../../api/todolist-api';
 import {useDispatch} from 'react-redux';
 import {ThunkDispatch} from 'redux-thunk';
-import {AppActionsType, AppRootStateType} from '../../state/store';
-import {fetchTasksTC} from '../../state/tasks-reducer';
+import {AppActionsType, AppRootStateType} from '../../../app/store';
+import {fetchTasksTC} from '../tasks-reducer';
 
 type PropsType = {
     todolistID: string
