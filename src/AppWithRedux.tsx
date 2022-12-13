@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import './App.css';
-import {TasksType, Todolist} from './components/Todolist/Todolist';
+import {Todolist} from './components/Todolist/Todolist';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
 import {Container, Grid, Paper} from '@mui/material';
 import ButtonAppBar from './components/AppBar';
@@ -8,27 +8,22 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC
+    FilterValuesType,
+    removeTodolistAC,
+    TodolistDomainType
 } from './state/todolists-reducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
-
-export type FilterValuesType = 'all' | 'active' | 'completed'
-
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
+import {TaskStatuses, TaskType} from './api/todolist-api';
 
 export type TasksStateType = {
-    [key: string]: Array<TasksType>
+    [key: string]: Array<TaskType>
 }
 
 function AppWithRedux() {
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch()
 
@@ -56,8 +51,8 @@ function AppWithRedux() {
         dispatch(changeTodolistTitleAC(todolistID, newTitle))
     }, [dispatch])
 
-    const changeStatus = useCallback((todolistID: string, taskID: string, taskIsDone: boolean) => {
-        dispatch(changeTaskStatusAC(todolistID, taskID, taskIsDone))
+    const changeStatus = useCallback((todolistID: string, taskID: string, status: TaskStatuses) => {
+        dispatch(changeTaskStatusAC(todolistID, taskID, status))
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistID: string) => {

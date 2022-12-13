@@ -36,7 +36,7 @@ export const todolistAPI = {
 }
 
 
-type TodolistType = {
+export type TodolistType = {
     id: string
     addedDate: string
     order: number
@@ -50,7 +50,22 @@ type BaseResponseType<T = {}> = {
     data: T
 }
 
-type TaskType = {
+export enum TaskStatuses {
+    New = 0,
+    InProgress,
+    Completed,
+    Draft
+}
+
+export enum TaskPriorities {
+    Low,
+    Middle,
+    Hi,
+    Urgently,
+    Later
+}
+
+export type TaskType = {
     description: string
     title: string
     status: number

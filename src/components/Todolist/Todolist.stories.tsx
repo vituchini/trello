@@ -3,6 +3,7 @@ import {ComponentMeta, ComponentStory} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
+import {TaskPriorities, TaskStatuses} from '../../api/todolist-api';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -13,11 +14,11 @@ export default {
         todolistID: 'todolistId1',
         title: 'What to learn',
         tasks: [
-            {id: v1(), title: 'HTML&CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'React', isDone: false},
-            {id: v1(), title: 'Rest API', isDone: false},
-            {id: v1(), title: 'GraphQL', isDone: false},
+            {id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, todoListId: 'todolistId1', description: '' , startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {id: v1(), title: 'JS', status: TaskStatuses.Completed, todoListId: 'todolistId1', description: '' , startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {id: v1(), title: 'React', status: TaskStatuses.New, todoListId: 'todolistId1', description: '' , startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {id: v1(), title: 'Rest API', status: TaskStatuses.New, todoListId: 'todolistId1', description: '' , startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
+            {id: v1(), title: 'GraphQL', status: TaskStatuses.New, todoListId: 'todolistId1', description: '' , startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low},
         ],
         changeFilter: action('Filter button inside Todolist clicked'),
         addTask: action('Add new task button inside Todolist clicked'),
