@@ -1,10 +1,14 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Header} from '../Header/Header';
 import {FilterValuesType} from '../../state/todolists-reducer';
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import {Button} from '@mui/material';
 import {Task} from '../Task/Task';
 import {TaskStatuses, TaskType} from '../../api/todolist-api';
+import {useDispatch} from 'react-redux';
+import {ThunkDispatch} from 'redux-thunk';
+import {AppActionsType, AppRootStateType} from '../../state/store';
+import {fetchTasksTC} from '../../state/tasks-reducer';
 
 type PropsType = {
     todolistID: string
@@ -18,9 +22,15 @@ type PropsType = {
     changeStatus: (todolistID: string, taskID: string, status: TaskStatuses) => void
     updateTask: (todolistID: string, taskID: string, newTitle: string) => void
     removeTask: (todolistID: string, taskID: string) => void
-
 }
+
 export const Todolist = React.memo((props: PropsType) => {
+
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, AppActionsType>>()
+
+    useEffect( ()=>{
+        dispatch(fetchTasksTC(props.todolistID))
+    },[] )
 
     const changeFilterHandler = useCallback((value: FilterValuesType) => {
         props.changeFilter(props.todolistID, value)

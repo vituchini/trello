@@ -165,8 +165,20 @@ function AppWithReducers() {
         dispatchToTodolist(changeTodolistFilterAC(todolistID, value))
     }
 
-    function addTask(todolistID: string, title: string) {
-        dispatchToTasks(addTaskAC(todolistID, title))
+    function addTask(todolistId: string, title: string) {
+        const action = addTaskAC({
+            todoListId: todolistId,
+            title: title,
+            status: TaskStatuses.New,
+            addedDate: '',
+            deadline: '',
+            description: '',
+            order: 0,
+            priority: TaskPriorities.Low,
+            startDate: '',
+            id: 'id exists'
+        })
+        dispatchToTasks(action)
     }
 
     function updateTask(todolistID: string, taskID: string, newTitle: string) {
@@ -174,7 +186,12 @@ function AppWithReducers() {
     }
 
     function addTodolist(newTitle: string) {
-        let action = addTodolistAC(newTitle)
+        const action = addTodolistAC({
+            id: v1(),
+            title: newTitle,
+            addedDate: '',
+            order: 0
+        })
         dispatchToTodolist(action)
         dispatchToTasks(action)
     }
