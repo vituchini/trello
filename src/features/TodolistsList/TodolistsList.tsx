@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppActionsType, AppRootStateType} from '../../app/store';
+import {ActionsType, AppRootStateType} from '../../app/store';
 import {
     addTodolistTC,
     changeTodolistFilterAC,
@@ -18,16 +18,23 @@ import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import {Todolist} from './Todolist/Todolist';
 import {TasksStateType} from '../../app/App';
 
-export const TodolistsList = () => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const TodolistsList: FC<PropsType> = ({demo = false, ...props}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, AppActionsType>>()
+    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, ActionsType>>()
 
     const removeTask = useCallback((todolistID: string, taskID: string) => {
         dispatch(removeTaskTC(todolistID, taskID))
     }, [dispatch])
 
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetchTodolistsTC())
     }, [])
 
@@ -71,17 +78,16 @@ export const TodolistsList = () => {
                         <Grid item key={tl.id}>
                             <Paper style={{padding: '10px'}}>
                                 <Todolist
-                                    todolistID={tl.id}
-                                    title={tl.title}
+                                    todolist={tl}
                                     tasks={tasks[tl.id]}
                                     removeTask={removeTask}
                                     changeFilter={changeFilter}
                                     addTask={addTask}
                                     changeStatus={changeTaskStatus}
-                                    filter={tl.filter}
                                     removeTodolist={removeTodolist}
                                     updateTask={changeTaskTitle}
                                     updateTodolist={updateTodolistTitle}
+                                    demo={demo}
                                 />
                             </Paper>
                         </Grid>
