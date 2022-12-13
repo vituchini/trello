@@ -11,7 +11,15 @@ export default {
     args: {
         title: 'What to learn',
         callback: action('Remove button clicked'),
-        changeTitle: action('Title changed')
+        changeTitle: action('Title changed'),
+        todolist: {
+            id: 'todolistId1',
+            addedDate: '',
+            order: 0,
+            title: '',
+            filter: 'all',
+            entityStatus: 'idle',
+        }
     },
 } as ComponentMeta<typeof Header>;
 

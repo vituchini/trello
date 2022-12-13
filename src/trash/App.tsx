@@ -17,8 +17,8 @@ function App() {
     let todolistID2 = v1();
 
     let [todolists, setTodolists] = useState<Array<TodolistDomainType>>([
-        {id: todolistID1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
-        {id: todolistID2, title: 'What to buy', filter: 'all', addedDate: '', order: 0},
+        {id: todolistID1, title: 'What to learn', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
+        {id: todolistID2, title: 'What to buy', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'},
     ])
 
     let [tasks, setTasks] = useState<TasksStateType>({
@@ -157,7 +157,18 @@ function App() {
     }
 
     function addTask(todolistID: string, title: string) {
-        let newTask = {id: v1(), title: title, status: TaskStatuses.New, todoListId: todolistID, description: '' , startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low};
+        let newTask = {
+            id: v1(),
+            title: title,
+            status: TaskStatuses.New,
+            todoListId: todolistID,
+            description: '',
+            startDate: '',
+            deadline: '',
+            addedDate: '',
+            order: 0,
+            priority: TaskPriorities.Low
+        };
         setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }
 
@@ -170,7 +181,14 @@ function App() {
 
     function addTodolist(newTitle: string) {
         let newTodolistID = v1();
-        setTodolists([{id: newTodolistID, title: newTitle, filter: 'all', addedDate: '', order: 0}, ...todolists])
+        setTodolists([{
+            id: newTodolistID,
+            title: newTitle,
+            filter: 'all',
+            addedDate: '',
+            order: 0,
+            entityStatus: 'idle'
+        }, ...todolists])
         setTasks({...tasks, [newTodolistID]: []})
     }
 
@@ -214,14 +232,15 @@ function App() {
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist
                                         key={tl.id}
-                                        todolistID={tl.id}
-                                        title={tl.title}
+                                        todolist={tl}
+                                        // todolistID={tl.id}
+                                        // title={tl.title}
                                         tasks={tasksForTodolist}
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
                                         changeStatus={changeStatus}
-                                        filter={tl.filter}
+                                        // filter={tl.filter}
                                         removeTodolist={removeTodolist}
                                         updateTask={updateTask}
                                         updateTodolist={updateTodolistTitle}

@@ -4,9 +4,10 @@ import {AddBox} from '@mui/icons-material';
 
 type PropsType = {
     callback: (newTitle: string) => void
+    disabled?: boolean
 }
 
-export const AddItemForm: React.FC<PropsType> = React.memo(({callback}) => {
+export const AddItemForm: React.FC<PropsType> = React.memo(({disabled = false, callback}) => {
 
     const [title, setTitle] = useState('')
     const [error, setError] = useState('')
@@ -35,6 +36,7 @@ export const AddItemForm: React.FC<PropsType> = React.memo(({callback}) => {
     return (
         <div>
             <TextField id="outlined-basic"
+                       disabled={disabled}
                        label={error ? 'Title is required' : 'Enter title'}
                        variant="outlined"
                        value={title}
@@ -43,7 +45,7 @@ export const AddItemForm: React.FC<PropsType> = React.memo(({callback}) => {
                        error={!!error}
                        helperText={error}
             />
-            <IconButton color="primary" onClick={addItem}>
+            <IconButton color="primary" onClick={addItem} disabled={disabled}>
                 <AddBox/>
             </IconButton>
         </div>

@@ -24,3 +24,9 @@ AddItemFormStory.args = {
     callback: action('Button clicked inside form')
 };
 
+export const AddItemFormStoryDisabledExample = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+AddItemFormStoryDisabledExample.args = {
+    callback: action('Button clicked inside form'),
+    disabled: true
+};
