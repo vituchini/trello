@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
 import './App.css';
 import {v1} from 'uuid';
-import {TasksType, Todolist} from './components/Todolist/Todolist';
+import {Todolist} from './components/Todolist/Todolist';
 import {AddItemForm} from './components/AddItemForm/AddItemForm';
 import {Container, Grid, Paper} from '@mui/material';
 import ButtonAppBar from './components/AppBar';
@@ -9,21 +9,15 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
+    FilterValuesType,
     removeTodolistAC,
     todolistsReducer
 } from './state/todolists-reducer';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
-
-export type FilterValuesType = 'all' | 'active' | 'completed'
-
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
+import {TaskPriorities, TaskStatuses, TaskType} from './api/todolist-api';
 
 export type TasksStateType = {
-    [key: string]: Array<TasksType>
+    [key: string]: Array<TaskType>
 }
 
 let todolistID1 = v1();
@@ -31,26 +25,135 @@ let todolistID2 = v1();
 
 function AppWithReducers() {
 
-
     let [todolists, dispatchToTodolist] = useReducer(todolistsReducer, [
-        {id: todolistID1, title: 'What to learn', filter: 'all'},
-        {id: todolistID2, title: 'What to buy', filter: 'all'},
+        {id: todolistID1, title: 'What to learn', filter: 'all', addedDate: '', order: 0},
+        {id: todolistID2, title: 'What to buy', filter: 'all', addedDate: '', order: 0},
     ])
 
     let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
         [todolistID1]: [
-            {id: v1(), title: 'HTML&CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'React', isDone: false},
-            {id: v1(), title: 'Rest API', isDone: false},
-            {id: v1(), title: 'GraphQL', isDone: false},
+            {
+                id: v1(),
+                title: 'HTML&CSS',
+                status: TaskStatuses.Completed,
+                todoListId: todolistID1,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'JS',
+                status: TaskStatuses.Completed,
+                todoListId: todolistID1,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'React',
+                status: TaskStatuses.New,
+                todoListId: todolistID1,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'Rest API',
+                status: TaskStatuses.New,
+                todoListId: todolistID1,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'GraphQL',
+                status: TaskStatuses.New,
+                todoListId: todolistID1,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
         ],
         [todolistID2]: [
-            {id: v1(), title: 'Pork', isDone: true},
-            {id: v1(), title: 'Tomatoes', isDone: true},
-            {id: v1(), title: 'Сucumbers', isDone: false},
-            {id: v1(), title: 'Bread', isDone: false},
-            {id: v1(), title: 'Ketchup', isDone: false},
+            {
+                id: v1(),
+                title: 'Pork',
+                status: TaskStatuses.Completed,
+                todoListId: todolistID2,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'Tomatoes',
+                status: TaskStatuses.Completed,
+                todoListId: todolistID2,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'Сucumbers',
+                status: TaskStatuses.New,
+                todoListId: todolistID2,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'Bread',
+                status: TaskStatuses.New,
+                todoListId: todolistID2,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
+            {
+                id: v1(),
+                title: 'Ketchup',
+                status: TaskStatuses.New,
+                todoListId: todolistID2,
+                description: '',
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low
+            },
         ]
     });
 
@@ -80,8 +183,8 @@ function AppWithReducers() {
         dispatchToTodolist(changeTodolistTitleAC(todolistID, newTitle))
     }
 
-    function changeStatus(todolistID: string, taskID: string, taskIsDone: boolean) {
-        dispatchToTasks(changeTaskStatusAC(todolistID, taskID, taskIsDone))
+    function changeStatus(todolistID: string, taskID: string, status: TaskStatuses) {
+        dispatchToTasks(changeTaskStatusAC(todolistID, taskID, status))
     }
 
     function removeTodolist(todolistID: string) {
@@ -100,11 +203,11 @@ function AppWithReducers() {
                     {todolists.map((tl) => {
                         let tasksForTodolist = tasks[tl.id]
                         if (tl.filter === 'active') {
-                            tasksForTodolist = tasksForTodolist.filter(t => !t.isDone)
+                            tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.New)
                         }
 
                         if (tl.filter === 'completed') {
-                            tasksForTodolist = tasksForTodolist.filter(t => t.isDone)
+                            tasksForTodolist = tasksForTodolist.filter(t => t.status === TaskStatuses.Completed)
                         }
 
 
