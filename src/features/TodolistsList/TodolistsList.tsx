@@ -28,7 +28,7 @@ export const TodolistsList: FC<PropsType> = ({demo = false, ...props}) => {
     const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, ActionsType>>()
 
     const removeTask = useCallback((todolistID: string, taskID: string) => {
-        dispatch(removeTaskTC(todolistID, taskID))
+        !demo && dispatch(removeTaskTC(todolistID, taskID))
     }, [dispatch])
 
     useEffect(() => {
@@ -43,27 +43,27 @@ export const TodolistsList: FC<PropsType> = ({demo = false, ...props}) => {
     }, [dispatch])
 
     const addTask = useCallback((todolistID: string, title: string) => {
-        dispatch(addTaskTC(todolistID, title))
+        !demo && dispatch(addTaskTC(todolistID, title))
     }, [dispatch])
 
     const changeTaskTitle = useCallback((todolistID: string, taskID: string, newTitle: string) => {
-        dispatch(updateTaskTC(todolistID, taskID, {title: newTitle}))
+        !demo && dispatch(updateTaskTC(todolistID, taskID, {title: newTitle}))
     }, [dispatch])
 
     const addTodolist = useCallback((newTitle: string) => {
-        dispatch(addTodolistTC(newTitle))
+        !demo && dispatch(addTodolistTC(newTitle))
     }, [dispatch])
 
     const updateTodolistTitle = useCallback((todolistID: string, newTitle: string) => {
-        dispatch(changeTodolistTitleTC(todolistID, newTitle))
+        !demo && dispatch(changeTodolistTitleTC(todolistID, newTitle))
     }, [dispatch])
 
     const changeTaskStatus = useCallback((todolistID: string, taskID: string, status: TaskStatuses) => {
-        dispatch(updateTaskTC(todolistID, taskID, {status}))
+        !demo && dispatch(updateTaskTC(todolistID, taskID, {status}))
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistID: string) => {
-        dispatch(removeTodolistTC(todolistID))
+        !demo && dispatch(removeTodolistTC(todolistID))
     }, [dispatch])
 
     return (
