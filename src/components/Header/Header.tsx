@@ -15,7 +15,8 @@ type PropsType = {
 export const Header = (props: PropsType) => {
     return (
         <h3>
-            <EditableSpan title={props.title} callback={props.changeTitle}/>
+            <EditableSpan title={props.title} callback={props.changeTitle}
+                          disabled={props.todolist.entityStatus === 'loading'}/>
             <IconButton onClick={props.callback} name={props.name} disabled={props.todolist.entityStatus === 'loading'}>
                 <Delete/>
             </IconButton>

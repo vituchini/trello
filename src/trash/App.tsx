@@ -7,6 +7,7 @@ import {Container, Grid, Paper} from '@mui/material';
 import ButtonAppBar from '../components/AppBar';
 import {TaskPriorities, TaskStatuses, TaskType} from '../api/todolist-api';
 import {FilterValuesType, TodolistDomainType} from '../features/TodolistsList/todolists-reducer';
+import {RequestStatusType} from '../app/app-reducer';
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -33,7 +34,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -45,7 +47,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -57,7 +60,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -69,7 +73,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -81,7 +86,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
         ],
         [todolistID2]: [
@@ -95,7 +101,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -107,7 +114,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -119,7 +127,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -131,7 +140,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -143,7 +153,8 @@ function App() {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
         ]
     });
@@ -167,7 +178,8 @@ function App() {
             deadline: '',
             addedDate: '',
             order: 0,
-            priority: TaskPriorities.Low
+            priority: TaskPriorities.Low,
+            entityStatus: 'idle' as RequestStatusType
         };
         setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }
@@ -233,14 +245,11 @@ function App() {
                                     <Todolist
                                         key={tl.id}
                                         todolist={tl}
-                                        // todolistID={tl.id}
-                                        // title={tl.title}
                                         tasks={tasksForTodolist}
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
                                         changeStatus={changeStatus}
-                                        // filter={tl.filter}
                                         removeTodolist={removeTodolist}
                                         updateTask={updateTask}
                                         updateTodolist={updateTodolistTitle}

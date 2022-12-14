@@ -11,6 +11,7 @@ type TaskPropsType = {
     removeTask: (todolistID: string, taskID: string) => void
     task: TaskType
     todolistID: string
+    disabled?: boolean
 }
 export const Task: React.FC<TaskPropsType> = React.memo((props) => {
     const removeTaskHandler = () => {
@@ -39,7 +40,7 @@ export const Task: React.FC<TaskPropsType> = React.memo((props) => {
             />
 
             <EditableSpan title={props.task.title}
-                          callback={updateTaskHandler}/>
+                          callback={updateTaskHandler} disabled={props.task.entityStatus === 'loading'}/>
             <IconButton onClick={removeTaskHandler}>
                 <Delete/>
             </IconButton>

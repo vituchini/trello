@@ -1,6 +1,7 @@
 import {todolistAPI, TodolistType} from '../../api/todolist-api';
 import {AppDispatch, AppThunk} from '../../app/store';
-import {AppActionsType, RequestStatusType, setAppErrorAC, setAppStatusAC} from '../../app/app-reducer';
+import {AppActionsType, RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
+import {handleAppError, handleNetworkError} from '../../utils/error-utils';
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -56,6 +57,9 @@ export const fetchTodolistsTC = (): AppThunk => (dispatch: AppDispatch) => {
             dispatch(fetchTodolistsAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch((error) => {
+            handleNetworkError(dispatch, error.message)
+        })
 }
 export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -64,6 +68,9 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => 
         .then((res) => {
             dispatch(removeTodolistAC(todolistId))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((error) => {
+            handleNetworkError(dispatch, error.message)
         })
 }
 export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
@@ -74,13 +81,11 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
                 dispatch(fetchTodolistsTC())
                 dispatch(setAppStatusAC('succeeded'))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]))
-                } else {
-                    dispatch(setAppErrorAC('Some occurred error'))
-                }
-                dispatch(setAppStatusAC('failed'))
+                handleAppError(dispatch, res.data)
             }
+        })
+        .catch((error) => {
+            handleNetworkError(dispatch, error.message)
         })
 
 }
@@ -90,6 +95,9 @@ export const changeTodolistTitleTC = (todolistId: string, title: string): AppThu
         .then((res) => {
             dispatch(changeTodolistTitleAC(todolistId, title))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((error) => {
+            handleNetworkError(dispatch, error.message)
         })
 }
 

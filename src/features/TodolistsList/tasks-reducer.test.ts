@@ -24,7 +24,8 @@ beforeEach(() => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: '2',
@@ -36,7 +37,8 @@ beforeEach(() => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -48,7 +50,8 @@ beforeEach(() => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }
         ],
         'todolistId2': [
@@ -62,7 +65,8 @@ beforeEach(() => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: '2',
@@ -74,7 +78,8 @@ beforeEach(() => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -86,7 +91,8 @@ beforeEach(() => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }
         ]
     };
@@ -107,7 +113,8 @@ test('correct task should be deleted from correct array', () => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: '2',
@@ -119,7 +126,8 @@ test('correct task should be deleted from correct array', () => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -131,7 +139,8 @@ test('correct task should be deleted from correct array', () => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }
         ],
         'todolistId2': [
@@ -145,7 +154,8 @@ test('correct task should be deleted from correct array', () => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -157,7 +167,8 @@ test('correct task should be deleted from correct array', () => {
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus: 'idle'
             }
         ]
     });
@@ -177,7 +188,8 @@ test('correct task should be added to correct array', () => {
         order: 0,
         priority: TaskPriorities.Low,
         startDate: '',
-        id: 'id exists'
+        id: 'id exists',
+        entityStatus: 'idle'
     })
 
     const endState = tasksReducer(startState, action)
