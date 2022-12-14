@@ -1,7 +1,6 @@
 import {AddTodolistActionType, FetchTodolistsActionType, RemoveTodolistActionType} from './todolists-reducer';
 import {TaskPriorities, TaskStatuses, TaskType, todolistAPI, UpdateTaskModelType} from '../../api/todolist-api';
-import {ActionsType, AppRootStateType, AppThunk} from '../../app/store';
-import {Dispatch} from 'redux';
+import {AppRootStateType, AppThunk} from '../../app/store';
 import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
 import {handleAppError, handleNetworkError} from '../../utils/error-utils';
 import {AxiosError} from 'axios';
@@ -82,7 +81,7 @@ export const removeTaskTC = (todolistId: string, taskId: string): AppThunk => (d
     dispatch(setAppStatusAC('loading'))
     dispatch(changeTaskEntityStatusAC(todolistId, taskId, 'loading'))
     todolistAPI.deleteTask(todolistId, taskId)
-        .then((res) => {
+        .then(() => {
             dispatch(removeTaskAC(todolistId, taskId))
             dispatch(setAppStatusAC('succeeded'))
         })
@@ -105,7 +104,7 @@ export const addTaskTC = (todolistId: string, title: string): AppThunk => (dispa
             handleNetworkError(dispatch, error.message)
         })
 }
-export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk => (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
+export const updateTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunk => (dispatch, getState: () => AppRootStateType) => {
     const state = getState()
     const allAppTasks = state.tasks
     const tasksForCurrentTodolist = allAppTasks[todolistId]

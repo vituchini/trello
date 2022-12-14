@@ -1,6 +1,6 @@
 import React, {FC, useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {ActionsType, AppRootStateType} from '../../app/store';
+import {useSelector} from 'react-redux';
+import {AppRootStateType, useAppDispatch} from '../../app/store';
 import {
     addTodolistTC,
     changeTodolistFilterAC,
@@ -10,29 +10,30 @@ import {
     removeTodolistTC,
     TodolistDomainType
 } from './todolists-reducer';
-import {ThunkDispatch} from 'redux-thunk';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './tasks-reducer';
 import {TaskStatuses} from '../../api/todolist-api';
 import {Grid, Paper} from '@mui/material';
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import {Todolist} from './Todolist/Todolist';
 import {TasksStateType} from '../../app/App';
+import {Navigate} from 'react-router-dom';
 
 type PropsType = {
     demo?: boolean
 }
 
-export const TodolistsList: FC<PropsType> = ({demo = false, ...props}) => {
+export const TodolistsList: FC<PropsType> = ({demo = false}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, ActionsType>>()
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch();
 
     const removeTask = useCallback((todolistID: string, taskID: string) => {
         !demo && dispatch(removeTaskTC(todolistID, taskID))
     }, [dispatch])
 
     useEffect(() => {
-        if (demo) {
+        if (demo || !isLoggedIn) {
             return
         }
         dispatch(fetchTodolistsTC())
@@ -65,6 +66,10 @@ export const TodolistsList: FC<PropsType> = ({demo = false, ...props}) => {
     const removeTodolist = useCallback((todolistID: string) => {
         !demo && dispatch(removeTodolistTC(todolistID))
     }, [dispatch])
+
+    if (!isLoggedIn) {
+        return <Navigate to={'login'}/>
+    }
 
     return (
         <>
