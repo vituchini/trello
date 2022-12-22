@@ -40,7 +40,7 @@ export const Task: React.FC<TaskPropsType> = React.memo((props) => {
             />
 
             <EditableSpan title={props.task.title}
-                          callback={updateTaskHandler} disabled={props.task.entityStatus === 'loading'}/>
+                          callback={updateTaskHandler}/>
             <IconButton onClick={removeTaskHandler}>
                 <Delete/>
             </IconButton>

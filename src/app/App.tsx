@@ -24,7 +24,9 @@ function App({demo = false}: PropsType) {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(initializeAppTC())
+        if (!demo) {
+            dispatch(initializeAppTC())
+        }
     }, [])
 
     if (!isInitialized) {

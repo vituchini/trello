@@ -7,7 +7,6 @@ import {Container, Grid, Paper} from '@mui/material';
 import ButtonAppBar from '../components/AppBar';
 import {TaskPriorities, TaskStatuses, TaskType} from '../api/todolist-api';
 import {FilterValuesType, TodolistDomainType} from '../features/TodolistsList/todolists-reducer';
-import {RequestStatusType} from '../app/app-reducer';
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -35,7 +34,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -48,7 +46,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -61,7 +58,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -74,7 +70,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -87,7 +82,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
         ],
         [todolistID2]: [
@@ -102,7 +96,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -115,7 +108,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -128,7 +120,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -141,7 +132,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -154,7 +144,6 @@ function App() {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
         ]
     });
@@ -179,7 +168,6 @@ function App() {
             addedDate: '',
             order: 0,
             priority: TaskPriorities.Low,
-            entityStatus: 'idle' as RequestStatusType
         };
         setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }

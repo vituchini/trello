@@ -1,7 +1,7 @@
 import {Provider} from 'react-redux';
-import {AppRootStateType} from '../../app/store';
+import {AppRootStateType, RootReducerType} from '../../app/store';
 import React from 'react'
-import {applyMiddleware, combineReducers, legacy_createStore} from 'redux'
+import {combineReducers} from 'redux'
 import {v1} from 'uuid'
 import {tasksReducer} from '../../features/TodolistsList/tasks-reducer';
 import {todolistsReducer} from '../../features/TodolistsList/todolists-reducer';
@@ -9,8 +9,10 @@ import {TaskPriorities, TaskStatuses} from '../../api/todolist-api';
 import thunk from 'redux-thunk';
 import {appReducer} from '../../app/app-reducer';
 import {authReducer} from '../../features/Login/auth-reducer';
+import {configureStore} from '@reduxjs/toolkit';
+import {HashRouter} from 'react-router-dom';
 
-const rootReducer = combineReducers({
+const rootReducer: RootReducerType = combineReducers({
     tasks: tasksReducer,
     todolists: todolistsReducer,
     app: appReducer,
@@ -35,7 +37,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -48,7 +49,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -61,7 +61,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -74,7 +73,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -87,7 +85,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
         ],
         ['todolistId2']: [
@@ -102,7 +99,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -115,7 +111,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -128,7 +123,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -141,7 +135,6 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -154,22 +147,29 @@ const initialGlobalState: AppRootStateType = {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
         ]
     },
     app: {
-        status: 'idle',
+        status: 'succeeded',
         error: null,
-        isInitialized: false
+        isInitialized: true
     },
     auth: {
-        isLoggedIn: false
+        isLoggedIn: true
     }
 };
 
-export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunk));
+export const storyBookStore = configureStore({
+    reducer: rootReducer,
+    preloadedState: initialGlobalState,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk)
+});
 
 export const ReduxStoreProviderDecorator = (storyFn: any) => {
     return <Provider store={storyBookStore}>{storyFn()}</Provider>
 }
+
+export const BrowserRouterDecorator = (storyFn: any) => (
+    <HashRouter>{storyFn()}
+    </HashRouter>)
