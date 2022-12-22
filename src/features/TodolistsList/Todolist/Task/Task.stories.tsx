@@ -34,7 +34,6 @@ TaskIsDoneStory.args = {
         addedDate: '',
         order: 0,
         priority: TaskPriorities.Low,
-        entityStatus: 'idle'
     },
 };
 
@@ -52,7 +51,6 @@ TaskIsNotDoneStory.args = {
         addedDate: '',
         order: 0,
         priority: TaskPriorities.Low,
-        entityStatus: 'idle'
     },
 };
 

@@ -1,5 +1,5 @@
 import {addTaskAC, fetchTasksAC, removeTaskAC, tasksReducer, updateTaskAC} from './tasks-reducer';
-import {TasksStateType} from '../../trash/App';
+import {TasksStateType} from '../../app/App';
 import {
     addTodolistAC,
     fetchTodolistsAC,
@@ -25,7 +25,6 @@ beforeEach(() => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: '2',
@@ -38,7 +37,6 @@ beforeEach(() => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -51,7 +49,6 @@ beforeEach(() => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             }
         ],
         'todolistId2': [
@@ -66,7 +63,6 @@ beforeEach(() => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: '2',
@@ -79,7 +75,6 @@ beforeEach(() => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -92,7 +87,6 @@ beforeEach(() => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             }
         ]
     };
@@ -114,7 +108,6 @@ test('correct task should be deleted from correct array', () => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: '2',
@@ -127,7 +120,6 @@ test('correct task should be deleted from correct array', () => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -140,7 +132,6 @@ test('correct task should be deleted from correct array', () => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             }
         ],
         'todolistId2': [
@@ -155,7 +146,6 @@ test('correct task should be deleted from correct array', () => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             },
             {
                 id: '3',
@@ -168,7 +158,6 @@ test('correct task should be deleted from correct array', () => {
                 addedDate: '',
                 order: 0,
                 priority: TaskPriorities.Low,
-                entityStatus: 'idle'
             }
         ]
     });
@@ -177,22 +166,19 @@ test('correct task should be deleted from correct array', () => {
 
 
 test('correct task should be added to correct array', () => {
-
-    const action = addTaskAC({
-        task: {
-            todoListId: 'todolistId2',
-            title: 'juice',
-            status: TaskStatuses.New,
-            addedDate: '',
-            deadline: '',
-            description: '',
-            order: 0,
-            priority: TaskPriorities.Low,
-            startDate: '',
-            id: 'id exists',
-            entityStatus: 'idle'
-        }
-    })
+    let task = {
+        todoListId: 'todolistId2',
+        title: 'juice',
+        status: TaskStatuses.New,
+        addedDate: '',
+        deadline: '',
+        description: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        id: 'id exists',
+    };
+    const action = addTaskAC(task)
 
     const endState = tasksReducer(startState, action)
 

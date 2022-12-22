@@ -44,27 +44,27 @@ export const TodolistsList: FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
     const addTask = useCallback((todolistID: string, title: string) => {
-        !demo && dispatch(addTaskTC(todolistID, title))
+        dispatch(addTaskTC(todolistID, title))
     }, [dispatch])
 
     const changeTaskTitle = useCallback((todolistID: string, taskID: string, newTitle: string) => {
-        !demo && dispatch(updateTaskTC(todolistID, taskID, {title: newTitle}))
+        dispatch(updateTaskTC(todolistID, taskID, {title: newTitle}))
     }, [dispatch])
 
     const addTodolist = useCallback((newTitle: string) => {
-        !demo && dispatch(addTodolistTC(newTitle))
+        dispatch(addTodolistTC(newTitle))
     }, [dispatch])
 
     const updateTodolistTitle = useCallback((todolistID: string, newTitle: string) => {
-        !demo && dispatch(changeTodolistTitleTC(todolistID, newTitle))
+        dispatch(changeTodolistTitleTC(todolistID, newTitle))
     }, [dispatch])
 
     const changeTaskStatus = useCallback((todolistID: string, taskID: string, status: TaskStatuses) => {
-        !demo && dispatch(updateTaskTC(todolistID, taskID, {status}))
+        dispatch(updateTaskTC(todolistID, taskID, {status}))
     }, [dispatch])
 
     const removeTodolist = useCallback((todolistID: string) => {
-        !demo && dispatch(removeTodolistTC(todolistID))
+        dispatch(removeTodolistTC(todolistID))
     }, [dispatch])
 
     if (!isLoggedIn) {
