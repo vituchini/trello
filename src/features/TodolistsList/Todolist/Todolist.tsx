@@ -5,9 +5,7 @@ import {AddItemForm} from '../../../components/AddItemForm/AddItemForm';
 import {Button} from '@mui/material';
 import {Task} from './Task/Task';
 import {TaskStatuses, TaskType} from '../../../api/todolist-api';
-import {useDispatch} from 'react-redux';
-import {ThunkDispatch} from 'redux-thunk';
-import {ActionsType, AppRootStateType} from '../../../app/store';
+import {useAppDispatch} from '../../../app/store';
 import {fetchTasksTC} from '../tasks-reducer';
 
 type PropsType = {
@@ -25,7 +23,7 @@ type PropsType = {
 
 export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
 
-    const dispatch = useDispatch<ThunkDispatch<AppRootStateType, unknown, ActionsType>>()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (demo) {
