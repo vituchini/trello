@@ -4,6 +4,8 @@ import {handleAppError, handleNetworkError} from '../../utils/error-utils';
 import {AxiosError} from 'axios';
 import {AppThunk} from '../../app/store';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {clearTodolistsDataAC} from '../TodolistsList/todolists-reducer';
+import {clearTasksDataAC} from '../TodolistsList/tasks-reducer';
 
 const initialState = {
     isLoggedIn: false
@@ -46,6 +48,8 @@ export const logoutTC = (): AppThunk => (dispatch) => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedInAC({value: false}))
                 dispatch(setAppStatusAC({status: 'succeeded'}))
+                dispatch(clearTodolistsDataAC())
+                dispatch(clearTasksDataAC())
             } else {
                 handleAppError(dispatch, res.data)
             }
