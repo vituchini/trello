@@ -4,6 +4,7 @@ import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
 import {handleAppError, handleNetworkError} from '../../utils/error-utils';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {fetchTasksTC} from './tasks-reducer';
+import {AxiosError} from 'axios';
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -35,7 +36,7 @@ const slice = createSlice({
         fetchTodolistsAC(state, action: PayloadAction<{ todolists: Array<TodolistType> }>) {
             return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}));
         },
-        clearTodolistsDataAC(){
+        clearTodolistsDataAC() {
             return []
         }
     }
@@ -61,13 +62,13 @@ export const fetchTodolistsTC = (): AppThunk => (dispatch: AppDispatch) => {
             dispatch(setAppStatusAC({status: 'succeeded'}))
             return res.data
         })
-        .then((todolists)=>{
-            todolists.forEach((tl)=>{
+        .then((todolists) => {
+            todolists.forEach((tl) => {
                 dispatch(fetchTasksTC(tl.id))
             })
         })
-        .catch((error) => {
-            handleNetworkError(dispatch, error.message)
+        .catch((error: AxiosError) => {
+            handleNetworkError(dispatch, error)
         })
 }
 export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => {
@@ -78,7 +79,7 @@ export const removeTodolistTC = (todolistId: string): AppThunk => (dispatch) => 
             dispatch(removeTodolistAC({id: todolistId}))
             dispatch(setAppStatusAC({status: 'succeeded'}))
         })
-        .catch((error) => {
+        .catch((error: AxiosError) => {
             handleNetworkError(dispatch, error)
         })
 }
@@ -93,7 +94,7 @@ export const addTodolistTC = (title: string): AppThunk => (dispatch) => {
                 handleAppError(dispatch, res.data)
             }
         })
-        .catch((error) => {
+        .catch((error: AxiosError) => {
             handleNetworkError(dispatch, error)
         })
 }
@@ -104,7 +105,7 @@ export const changeTodolistTitleTC = (todolistId: string, title: string): AppThu
             dispatch(changeTodolistTitleAC({id: todolistId, title}))
             dispatch(setAppStatusAC({status: 'succeeded'}))
         })
-        .catch((error) => {
+        .catch((error: AxiosError) => {
             handleNetworkError(dispatch, error)
         })
 }
