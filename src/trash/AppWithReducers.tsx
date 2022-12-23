@@ -1,20 +1,5 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import '../app/App.css';
-import {v1} from 'uuid';
-import {Todolist} from '../features/TodolistsList/Todolist/Todolist';
-import {AddItemForm} from '../components/AddItemForm/AddItemForm';
-import {Container, Grid, Paper} from '@mui/material';
-import ButtonAppBar from '../components/AppBar';
-import {
-    addTodolistAC,
-    changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    FilterValuesType,
-    removeTodolistAC,
-    todolistsReducer
-} from '../features/TodolistsList/todolists-reducer';
-import {addTaskAC, removeTaskAC, tasksReducer} from '../features/TodolistsList/tasks-reducer';
-import {TaskPriorities, TaskStatuses, TaskType} from '../api/todolist-api';
 
 /*
 export type TasksStateType = {
